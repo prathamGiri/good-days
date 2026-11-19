@@ -1,0 +1,71 @@
+{
+  "name": "Good Days",
+  "slug": "good-days",
+  "tagline": "A gentle daily check-in for your aging pet: one tap a night shows whether the good days still outnumber the bad, and gives you something real to bring to the vet.",
+  "problem": "Owners of senior or chronically ill pets are told by vets to 'mark a calendar: good day, bad day' and to watch whether bad days outnumber good ones over 1-2 weeks, alongside the HHHHHMM quality-of-life scale (Hurt, Hunger, Hydration, Hygiene, Happiness, Mobility, More good days than bad). In practice people do this on paper calendars, printable Etsy PDFs, or subscription apps, and in the moment grief makes trends hard to see. Vets say these logs show them what daily life at home really looks like, which a short clinic visit can't, but owners rarely have the numbers ready when they need them.",
+  "evidence": [
+    {
+      "source": "https://info.lapoflove.com/what-signs-indicate-my-pets-quality-of-life-is-declining",
+      "note": "Lap of Love (vet hospice) says that if bad days are becoming more frequent than good days over one to two weeks, it may signal that comfort is getting harder to maintain."
+    },
+    {
+      "source": "https://prd-stgext-content.petco.com/content/content-hub/home/questions/01/37/638962.html",
+      "note": "Recommends marking each evening whether it was a good, bad, or mediocre day: the exact 3-state check-in this app uses."
+    },
+    {
+      "source": "https://vcahospitals.com/know-your-pet/quality-of-life-at-the-end-of-life-for-your-dog",
+      "note": "VCA says quality of life is compromised when bad days outnumber good ones or when there are too many bad days in a row. Recommends tracking over time."
+    },
+    {
+      "source": "https://www.dvm360.com/view/don-t-wait-for-the-bad-days-rethinking-quality-of-life-assessment-for-senior-pets",
+      "note": "Veterinary trade press urges owners to start assessing quality of life early instead of waiting for a crisis."
+    },
+    {
+      "source": "https://www.merckvetmanual.com/multimedia/table/hhhhhmm-quality-of-life-scale",
+      "note": "Merck Vet Manual reference for the HHHHHMM scale: seven categories scored 0-10. A total above 35 is generally considered acceptable."
+    },
+    {
+      "source": "https://www.etsy.com/listing/4529068828",
+      "note": "People buy printable paper senior-dog QoL tracker PDFs, which shows demand for a simple tool. Paper can't compute rolling ratios or streaks."
+    },
+    {
+      "source": "https://ralph-pet-website.pages.dev/for-pet-owners",
+      "note": "The existing app in this niche puts modules behind a \u20ac2.50/month subscription, which leaves room for a free, private, offline alternative."
+    }
+  ],
+  "target_users": "Owners of senior dogs and cats, or pets with chronic or terminal illness (kidney disease, arthritis, cancer, CHF), who want a calm, private, low-effort way to see the trend and talk with their vet about comfort and timing.",
+  "core_features": [
+    "Nightly one-tap check-in: Good / Meh / Bad, with an optional one-line note (e.g. 'wouldn't climb stairs'). You can back-fill or edit any of the past 7 days. Supports multiple pets, each with a name, species, emoji avatar and color.",
+    "Rolling balance gauge: for the last 7 and 14 days, count Good vs Bad (Meh counts as half on each side) and show it as a balance bar with plain-language status: 'Mostly good days', 'Mixed: keep watching', or 'Bad days are outnumbering good: worth a vet conversation'. Also flags bad-day streaks of 3 or more in a row. The wording stays gentle and never prescriptive.",
+    "HHHHHMM weekly check: a guided 7-slider assessment (0-10 each) with a short plain-English hint per category. Shows the total out of 70 with the >35 reference line. A sparkline shows the history of totals and highlights which category dropped most since the last check.",
+    "'Favorite Things' list: the owner lists 3-5 things the pet loves (greeting at the door, chasing the ball, begging at dinner). Each week they tick whether the pet still does each one. The app shows when a favorite was last seen, a common vet-hospice tip for recognizing decline.",
+    "Calendar heatmap: a month grid colored green/amber/red by day rating, with dots for days that have notes and markers for HHHHHMM checks. Tap a day to see or edit it, and swipe between months.",
+    "Vet summary share: one tap builds a plain-text summary of the last 14 or 30 days (good/meh/bad counts, longest bad streak, latest and previous HHHHHMM totals with the biggest category changes, favorites no longer seen, recent notes) and sends it through the native share-text bridge to email or message the vet. Also includes JSON export/import backup through copy/paste."
+  ],
+  "screens": [
+    "Today: pet switcher chips at the top, a big three-button Good/Meh/Bad check-in for tonight (with a tap-to-edit state once logged), the 7/14-day balance gauge with status text, a streak warning if any, and a nudge card when the weekly HHHHHMM or Favorites check is due",
+    "Calendar: month heatmap of ratings per pet, with legend, month navigation and a day-detail sheet (rating, note, HHHHHMM total if taken)",
+    "Weekly Check: HHHHHMM sliders with hints and live total, then the Favorite Things tick-list ('Still does this?' yes / not this week)",
+    "Trends: HHHHHMM total sparkline with the 35 reference line, per-category mini bars comparing latest vs previous, monthly good/meh/bad stacked counts, and the Favorite Things 'last seen' list",
+    "Vet Summary: range selector (14/30 days), a preview of the generated text, a Share button and a Copy button",
+    "Pets & Settings: add/edit/archive pets (name, species, birth year, emoji, color, favorite things), a memorial mode that keeps the log read-only and offers gentle wording, data export/import, and reset"
+  ],
+  "data_model": "localStorage key 'gooddays.v1' holds one JSON object: { pets: [{id, name, species: 'dog'|'cat'|'other', birthYear, emoji, color, favorites: [{id, label, createdAt}], archived: bool, memorial: bool, createdAt}], days: { [petId]: { 'YYYY-MM-DD': {rating: 'good'|'meh'|'bad', note, updatedAt} } }, checks: [{id, petId, date, scores: {hurt, hunger, hydration, hygiene, happiness, mobility, moreGood}, total, favoritesSeen: {[favoriteId]: bool}}], settings: {activePetId, lastBackupAt} }. All dates use local-time ISO day strings.",
+  "design": {
+    "bg": "#1C1A17",
+    "accent": "#E8B86B",
+    "vibe": "Warm, quiet, comforting: a warm charcoal background with soft honey-gold accents, like lamplight. The rating colors are muted sage green (#8FB996), sand amber (#D9A85B) and dusty rose (#C97C7C), never alarm red. The type is rounded humanist sans with generous spacing and large tap targets for tired evenings. Gentle fade/scale micro-animations, and a soft vibration on check-in. Copy is kind and non-clinical ('How was Biscuit's day?'). No confetti or gamified streak celebrations."
+  },
+  "test_scenarios": [
+    "First launch with no pets: you're prompted to add a pet. Add 'Biscuit' (dog, \ud83d\udc36). The Today screen shows 'How was Biscuit's day?' with three buttons.",
+    "Tap 'Good' on Today: the button shows the selected state, a toast confirms, and the device vibrates. Reload the app: the rating persists. Tap 'Bad': the rating updates and doesn't duplicate.",
+    "Back-fill the last 14 days with 4 Good, 3 Meh, 7 Bad (including 3 Bad in a row). The 14-day gauge shows bad outnumbering good, with the matching gentle status text and a 3-day bad-streak notice.",
+    "Open the Calendar: each logged day shows the right color. A day with a note shows a dot. Tap a past day and change its rating: the gauge on Today updates.",
+    "Complete a weekly HHHHHMM check with scores totaling 42, then another a week later totaling 31 with mobility dropping most. Trends shows both totals, the line dips below the 35 reference, and mobility is highlighted as the biggest drop.",
+    "Add 3 favorite things. In the weekly check, mark 'chasing the ball' as not seen. Trends and the Vet Summary list it as not seen since that date.",
+    "Generate a 14-day Vet Summary: the text includes the pet name, date range, good/meh/bad counts, longest bad streak, latest HHHHHMM total and change, favorites not seen, and recent notes. Share invokes the native share bridge, and Copy works.",
+    "Add a second pet 'Miso' (cat). Switching chips shows separate ratings, gauges and calendars, and logging for Miso doesn't affect Biscuit.",
+    "Export the data as JSON, reset the app, then import the JSON: all pets, days and checks are restored.",
+    "Mark Biscuit as memorial: the check-in buttons are hidden, the history stays viewable, and the wording changes gently. Other pets are unaffected."
+  ]
+}
